@@ -25,7 +25,7 @@ public class myConnection {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(myConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String jdbc="jdc:mysql//localhost/blog";
+        String jdbc="jdbc:mysql://localhost/blog";
         try {
             cn=DriverManager.getConnection(jdbc,"root","");
         } catch (SQLException ex) {
