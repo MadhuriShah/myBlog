@@ -39,12 +39,6 @@ public class loginBean {
 
     public boolean isIsLoggedIn() {
         return isLoggedIn;
-    }
-
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
-    }
-    public void doLogin(){
-        isLoggedIn=username.equals("Madhuri") && password.equals("shah");
+        
     }
 }
