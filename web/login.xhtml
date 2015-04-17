@@ -10,11 +10,12 @@ and open the template in the editor.
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>p{color:blue;} </style>
     </h:head>
     <h:body>
          <h:form>
             <p>Username: <h:inputText value="#{user.username}" /></p>
-            <p>Password: <h:inputText value="#{user.password}" /></p>
+            <p>Password: <h:inputSecret value="#{user.pass}" /></p>
             <p><h:commandLink action="#{user.doLogin()}" value="Login"/></p>            
             <c:if test="#{user.loggedIn}">
                 <p>Logged In!</p>

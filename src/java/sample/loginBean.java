@@ -6,6 +6,13 @@
 
 package sample;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -18,7 +25,7 @@ import javax.faces.bean.SessionScoped;
 
 public class loginBean {
     private String username;
-    private String password;
+    private String pass;
     private boolean loggedIn;
 
     public String getUsername() {
@@ -29,12 +36,12 @@ public class loginBean {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String password) {
+        this.pass = password;
     }
 
     public boolean isLoggedIn() {
@@ -47,7 +54,30 @@ public class loginBean {
 
    
     public void doLogin() {
-        loggedIn = username.equals("user") && password.equals("pass");
+        
+        Connection cn=connection.myConnection.getConnection();
+         PreparedStatement stmt=null;
+         String pass1=null;
+        String query="select password from login where username=?";
+        try {
+            stmt=cn.prepareStatement(query);
+            stmt.setString(1,username);
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()){
+             pass1=rs.getString("password");
+           // System.out.println(pass1);  
+            }   
+            
+        }    
+        catch (SQLException ex) {
+            Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(pass.equals(pass1)){
+            loggedIn=true;
+        }
+        else{
+            loggedIn=false;
+        }
     }
     
 }
