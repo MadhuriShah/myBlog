@@ -6,10 +6,16 @@
 
 package sample;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  *
  * @author c0647610
  */
+@ManagedBean
+@SessionScoped
+
 public class loginBean {
     private String username;
     private String password;
