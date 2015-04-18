@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form name="insert" action="webresources/insert">
+        <form name="insert" action="webresources/insert/add" method="post">
         <h2> Welcome to myBlog</h2>
         <h3>Title: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="title"></h3>
         <h3>Description: <textarea rows="5" cols="80" name="description"></textarea></h3>

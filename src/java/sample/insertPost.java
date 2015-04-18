@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,19 +28,17 @@ import javax.ws.rs.QueryParam;
 @Path("insert")
 public class insertPost {
     @GET  
-    public String getAll(@QueryParam("title") String name,
-		@QueryParam("description") String description) {
-        return "Hello World" + name + description;
+    public String getAll() {
+        return "Hello World";
     } 
     
-   /*  @POST
-    @Consumes("application/json")
-    public void postData(String str){
-        JsonObject json = Json.createReader(new StringReader(str)).readObject();
-           String name = json.getString("title");
-           String description = json.getString("description");
+     @POST
+     @Path("add")
+    public void postData(@FormParam("title") String title,
+		@FormParam("description") String description){
+                System.out.println(title + description);
            String category=null;
-             doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?)", name, description,category );
+             doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?)", title, description,category );
     }
         public int doUpdate(String query, String... params) {
    int changes = 0;
@@ -53,5 +52,5 @@ public class insertPost {
            Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
       }
       return changes;
-  }*/
+  }
 }
