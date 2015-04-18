@@ -18,10 +18,12 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
@@ -47,7 +49,7 @@ public class insertPost {
         String title = json.getString("title");
         String description = json.getString("description");
         String category = null;
-        doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?, NOW())", title, description, category);
+        doUpdate("INSERT INTO post(title,description, c_id,date) VALUES (?, ?, ?, NOW())", title, description, category);
     }
 
     public int doUpdate(String query, String... params) {
@@ -63,24 +65,25 @@ public class insertPost {
         }
         return changes;
     }
-    
-       public static JsonArray getResults(String sql, String... params) {
+
+    public static JsonArray getResults(String sql, String... params) {
         JsonArray json = null;
         try {
             JsonArrayBuilder array = Json.createArrayBuilder();
             Connection conn = connection.myConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++)
-                pstmt.setString(i+1, params[i]);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setString(i + 1, params[i]);
+            }
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 array.add(Json.createObjectBuilder()
-                    .add("p_id", rs.getInt("p_id"))
-                    .add("title", rs.getString("title"))
-                    .add("description", rs.getString("description"))
-                    .add("c_id", rs.getInt("c_id"))
-                     .add("date", rs.getDate("date").toString())
-                    .build());
+                        .add("p_id", rs.getInt("p_id"))
+                        .add("title", rs.getString("title"))
+                        .add("description", rs.getString("description"))
+                        .add("date", rs.getDate("date").toString())
+                        .add("c_id", rs.getInt("c_id"))
+                        .build());
             }
             conn.close();
             json = array.build();
@@ -88,5 +91,11 @@ public class insertPost {
             Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
         }
         return json;
+    }
+
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") int id) throws Exception {
+        int result = doUpdate("Delete from post where p_id=?", String.valueOf(id));
     }
 }
