@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,19 +27,24 @@ import javax.servlet.http.HttpServletResponse;
 public class PostShowServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //response.setHeader("Content-Type", "text/plain-text");
+        String s="helloworld";
         try (PrintWriter out = response.getWriter()) {
             if (!request.getParameterNames().hasMoreElements()) {
-                out.println(getResults("SELECT * FROM post"));
+                s=getResults("SELECT * FROM post");
             } else {
                 int id = Integer.parseInt(request.getParameter("id"));
-                out.println(getResults("SELECT * FROM post WHERE p_id = ?", String.valueOf(id)));
+                s=getResults("SELECT * FROM post WHERE p_id = ?", String.valueOf(id));
             }
+            request.setAttribute("result",s);
+       request.getRequestDispatcher("test.jsp").forward(request, response);
+        
         } catch (IOException ex) {
             Logger.getLogger(PostShowServlet.class.getName()).log(Level.SEVERE, null, ex);
 
         }
+        
     }
 
     private String getResults(String query, String... params) {
