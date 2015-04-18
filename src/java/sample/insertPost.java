@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sample;
 
 import java.io.StringReader;
@@ -27,30 +26,34 @@ import javax.ws.rs.QueryParam;
  */
 @Path("insert")
 public class insertPost {
-    @GET  
+
+    @GET
     public String getAll() {
         return "Hello World";
-    } 
-    
-     @POST
-     @Path("add")
-    public void postData(@FormParam("title") String title,
-		@FormParam("description") String description){
-                System.out.println(title + description);
-           String category=null;
-             doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?)", title, description,category );
     }
-        public int doUpdate(String query, String... params) {
-   int changes = 0;
-      try (Connection cn = connection.myConnection.getConnection()) {
-           PreparedStatement pstmt = cn.prepareStatement(query);
-           for (int i = 1; i <= params.length; i++) {
-               pstmt.setString(i, params[i - 1]);
-           }
-           changes = pstmt.executeUpdate();
-       } catch (SQLException ex) {
-           Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      return changes;
-  }
+
+    @POST
+    @Consumes("application/json")
+    public void postData(String str) {
+
+        JsonObject json = Json.createReader(new StringReader(str)).readObject();
+        String title = json.getString("title");
+        String description = json.getString("description");
+        String category = null;
+        doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?)", title, description, category);
+    }
+
+    public int doUpdate(String query, String... params) {
+        int changes = 0;
+        try (Connection cn = connection.myConnection.getConnection()) {
+            PreparedStatement pstmt = cn.prepareStatement(query);
+            for (int i = 1; i <= params.length; i++) {
+                pstmt.setString(i, params[i - 1]);
+            }
+            changes = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return changes;
+    }
 }
