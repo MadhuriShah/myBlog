@@ -47,7 +47,7 @@ public class insertPost {
         String title = json.getString("title");
         String description = json.getString("description");
         String category = null;
-        doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?)", title, description, category);
+        doUpdate("INSERT INTO post(title,description, c_id) VALUES (?, ?, ?, NOW())", title, description, category);
     }
 
     public int doUpdate(String query, String... params) {
@@ -79,6 +79,7 @@ public class insertPost {
                     .add("title", rs.getString("title"))
                     .add("description", rs.getString("description"))
                     .add("c_id", rs.getInt("c_id"))
+                     .add("date", rs.getDate("date").toString())
                     .build());
             }
             conn.close();
