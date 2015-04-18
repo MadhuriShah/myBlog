@@ -18,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 /**
  *
@@ -26,11 +27,12 @@ import javax.ws.rs.Path;
 @Path("insert")
 public class insertPost {
     @GET  
-    public String getAll() {
-        return "Hello World";
+    public String getAll(@QueryParam("title") String name,
+		@QueryParam("description") String description) {
+        return "Hello World" + name + description;
     } 
     
-     @POST
+   /*  @POST
     @Consumes("application/json")
     public void postData(String str){
         JsonObject json = Json.createReader(new StringReader(str)).readObject();
@@ -51,5 +53,5 @@ public class insertPost {
            Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
       }
       return changes;
-  }
+  }*/
 }
