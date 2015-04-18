@@ -14,11 +14,14 @@ and open the template in the editor.
     </h:head>
     <h:body>
          <h:form>
+             <c:if test="#{!user.loggedIn}">
             <p>Username: <h:inputText value="#{user.username}" /></p>
             <p>Password: <h:inputSecret value="#{user.pass}" /></p>
             <p><h:commandLink action="#{user.doLogin()}" value="Login"/></p>            
-            <c:if test="#{user.loggedIn}">
+          </c:if>
+              <c:if test="#{user.loggedIn}">
                 <p>Logged In!</p>
+                <p><h:commandLink action="#{user.doLogout()}" value="Logout"/></p>
             </c:if>
         </h:form>
     </h:body>

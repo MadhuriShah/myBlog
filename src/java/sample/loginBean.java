@@ -48,6 +48,10 @@ public class loginBean {
         this.loggedIn = loggedIn;
     }
 
+    public String getPass() {
+        return pass;
+    }
+
    
     public void doLogin() {
         
@@ -61,7 +65,6 @@ public class loginBean {
             ResultSet rs=stmt.executeQuery();
             while(rs.next()){
              pass1=rs.getString("password");
-           // System.out.println(pass1);  
             }   
             
         }    
@@ -74,6 +77,9 @@ public class loginBean {
         else{
             loggedIn=false;
         }
+    }
+    public void doLogout(){
+        loggedIn=false;
     }
     
 }
