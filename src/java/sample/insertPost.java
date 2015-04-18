@@ -22,6 +22,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -97,5 +98,16 @@ public class insertPost {
     @Path("{id}")
     public void remove(@PathParam("id") int id) throws Exception {
         int result = doUpdate("Delete from post where p_id=?", String.valueOf(id));
+    }
+    
+    @PUT
+    @Path("{id}")
+    @Consumes("application/json")
+    public void putData(String str, @PathParam("id") int id){
+        JsonObject json = Json.createReader(new StringReader(str)).readObject();
+        String name = json.getString("title");
+        String description = json.getString("description");
+       
+        doUpdate("UPDATE post SET title= ?, description = ?, date = NOW(), c_id = 0 WHERE p_id = ?", name, description,String.valueOf(id));
     }
 }
