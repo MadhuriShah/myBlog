@@ -34,7 +34,7 @@ import javax.ws.rs.core.Response;
  * @author c0647610
  */
 @Path("insert")
-public class insertPost {
+public class PostRest {
 
     @GET
     @Produces("application/json")
@@ -62,7 +62,7 @@ public class insertPost {
             }
             changes = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostRest.class.getName()).log(Level.SEVERE, null, ex);
         }
         return changes;
     }
@@ -89,7 +89,7 @@ public class insertPost {
             conn.close();
             json = array.build();
         } catch (SQLException ex) {
-            Logger.getLogger(insertPost.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostRest.class.getName()).log(Level.SEVERE, null, ex);
         }
         return json;
     }
