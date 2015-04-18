@@ -36,10 +36,6 @@ public class loginBean {
         this.username = username;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
     public void setPass(String password) {
         this.pass = password;
     }
