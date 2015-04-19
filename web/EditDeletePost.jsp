@@ -34,8 +34,8 @@
                     });
                 }); */               
             });
-            // Configure a Callback to Update the Blog
-            $('#title')
+            // 
+          
             var getBlog = function(data) {
                 $('#blog').html('');
                 for (var i = 0; i < data.length; i++)
@@ -48,7 +48,7 @@
                 $('#text').val('');
                 $('#title').val('');
             };                            
-            // Perform a Deletion on the DB
+            // Delete
             var doDelete = function(id) {
                 $.ajax({
                     url: "./webresources/insert/" + id,
@@ -58,7 +58,7 @@
                     success: getBlog
                 });
             };
-            // Stage an Update on the DB
+           // Update 
             var stageUpdate = function(id) {
                  $('#text').removeClass('invisible');
                   $('#title').removeClass('invisible');
