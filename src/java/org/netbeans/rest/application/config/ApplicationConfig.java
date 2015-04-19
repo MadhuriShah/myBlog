@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(sample.PostRest.class);
+        resources.add(sample.ProfileRest.class);
     }
     
 }

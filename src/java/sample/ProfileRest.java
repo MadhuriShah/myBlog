@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package sample;
 
-import connection.myConnection;
 import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,45 +19,41 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 /**
  *
  * @author c0647610
  */
-@Path("insert")
-public class PostRest {
+@Path("Profile")
+public class ProfileRest {
+     @GET
+    @Produces("application/json")
+    public Response getAll() {
+        return Response.ok(getResults("select * from user")).build();
+    }
 
-    @GET
-    @Produces("application/json")
-    public Response get() {
-        return Response.ok(getResults("select * from post")).build();
-    }
-    @GET
-    @Path("{id}")
-    @Produces("application/json")
-    public Response get(@PathParam("id") int id) {
-        return Response.ok(getResults("SELECT * FROM post WHERE p_id = ?", String.valueOf(id))).build();
-    }
     @POST
     @Consumes("application/json")
-    public Response postData(String str) {
+    public void postData(String str) {
 
         JsonObject json = Json.createReader(new StringReader(str)).readObject();
-        String title = json.getString("title");
-        String description = json.getString("description");
-        int category = 1;
-        doUpdate("INSERT INTO post(title,description, category,date) VALUES (?, ?, ?, NOW())", title, description, String.valueOf(category));
-                 return Response.ok(getResults("select * from post")).build();
-
+        String first = json.getString("FirstName");
+        String last = json.getString("LastName");
+        String image="image";
+         String email=json.getString("email");
+          String phone=json.getString("phone");
+           String description=json.getString("description");
+            String username="user";
+               
+        String category = null;
+        doUpdate("INSERT INTO user(FirstName,LastName, imageUrl,email,phone,description,username) VALUES (?, ?, ?, ?, ?, ?, ?)", first,last,image,email,phone,description,username);
     }
 
     public int doUpdate(String query, String... params) {
@@ -86,11 +82,14 @@ public class PostRest {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 array.add(Json.createObjectBuilder()
-                        .add("p_id", rs.getInt("p_id"))
-                        .add("title", rs.getString("title"))
-                        .add("description", rs.getString("description"))
-                        .add("date", rs.getDate("date").toString())
-                        .add("category", rs.getInt("category"))
+                        .add("id",rs.getInt("id"))
+                        .add("FirstName", rs.getString("FirstName"))
+                        .add("LastName", rs.getString("LastName"))
+                        .add("image", rs.getString("imageUrl"))
+                        .add("email", rs.getString("email"))
+                        .add("phone", rs.getString("phone"))
+                         .add("description", rs.getString("description"))
+                         .add("username", rs.getString("username"))
                         .build());
             }
             conn.close();
@@ -103,21 +102,24 @@ public class PostRest {
 
     @DELETE
     @Path("{id}")
-    public Response remove(@PathParam("id") int id) throws Exception {
-        int result = doUpdate("Delete from post where p_id=?", String.valueOf(id));
-          return Response.ok(getResults("select * from post")).build();
-
+    public void remove(@PathParam("id") int id) throws Exception {
+        int result = doUpdate("Delete from user where id=?", String.valueOf(id));
     }
     
     @PUT
     @Path("{id}")
     @Consumes("application/json")
-    public Response putData(String str, @PathParam("id") int id){
+    public void putData(String str, @PathParam("id") int id){
         JsonObject json = Json.createReader(new StringReader(str)).readObject();
-        String name = json.getString("title");
-        String description = json.getString("description");
+       String first = json.getString("FirstName");
+        String last = json.getString("LastName");
+        String image=json.getString("imageUrl");
+         String email=json.getString("email");
+          String phone=json.getString("phone");
+           String description=json.getString("description");
+            String username=json.getString("username");
        
-        doUpdate("UPDATE post SET title= ?, description = ?, date = NOW(), category = 0 WHERE p_id = ?", name, description,String.valueOf(id));
-         return Response.ok(getResults("select * from post")).build();
+        doUpdate("UPDATE user SET FirstName= ?, LastName = ?, imageUrl = ?, email = ?,phone = ?, description = ?, username = ?, WHERE id = ?", first, last,image,email,phone,description,username,String.valueOf(id));
     }
+    
 }
