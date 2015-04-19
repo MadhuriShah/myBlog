@@ -14,8 +14,7 @@
         <title>My Blog</title>
 
         <script src="http://code.jquery.com/jquery.min.js"></script>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function() {
                 // Go Grab the Blog Data and Place it on the Page
@@ -41,9 +40,9 @@
                 $('#blog').html('');
                 for (var i = 0; i < data.length; i++)
                 {                    $('#blog').append('<h3>' + data[i].title + '</h3><p><small>' + 
-                       data[i].description  + '</small></h5><p>' + data[i].date+
-                        '&nbsp;&nbsp;&nbsp;<button style="align:right" class="btn btn-default" onclick="doDelete('+ 
-                        data[i].p_id + ')">Delete</button>&nbsp;&nbsp;<button class="btn btn-default" onclick="stageUpdate('+ 
+                       data[i].description  + '</small></h5>' + data[i].date+
+                        '&nbsp;&nbsp;&nbsp;<p align="right"><button class="btn btn-info" onclick="doDelete('+ 
+                        data[i].p_id + ')">Delete</button>&nbsp;&nbsp;<button class="btn btn-info" onclick="stageUpdate('+ 
                         data[i].p_id + ')">Edit</button></p>');
             }
                 $('#text').val('');
@@ -90,11 +89,14 @@
     </head>
     <body>
         <section class='container'>
-            <div class="col-md-8">
+          
+                <h1>Welcome to my Blog </h1>
+                <p align="right">
                 <a href="testinsert.jsp">Add a new Post</a>
                 <a href="login.xhtml">Logout</a>
+                </p>
                  <div id="blog" class="panel-body"></div>
-            </div>
+            
             <div class="form-group">
                     <input id="title" class="form-control"/>
                 

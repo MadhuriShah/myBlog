@@ -14,8 +14,7 @@
         <title>My Blog</title>
 
         <script src="http://code.jquery.com/jquery.min.js"></script>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function() {
                 // Go Grab the Blog Data and Place it on the Page
@@ -87,16 +86,18 @@
         <section class='container'>
             <div class="col-md-8">
                 <h1>Welcome to My Blog</h1>
+                 <h3>Add your post:</h3>
                 <div class="form-group">
                     <label for="title">Title:</label>
                     <input id="title" class="form-control"/>
                 </div>
-                <textarea id="text" rows="3" class="form-control"></textarea>
+                  <label for="title">Description:</label>
+                  <textarea id="text" rows="3" class="form-control"></textarea><br>
                 <button id="send" class="btn btn-default">Send</button>                
                 <button id="update" class="btn btn-default invisible">Update</button>  
                 <div class="panel">
                  </div>
-            <div class="col-md-4" id="resume"></div>            
+                 
         </section>
     </body>
 </html>
