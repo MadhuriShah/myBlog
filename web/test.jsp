@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="sample.PostShowServlet"%>
+<jsp:include page="./show"/>
 <!DOCTYPE html>
 <html>
     <head>

@@ -29,39 +29,43 @@ public class PostShowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //response.setHeader("Content-Type", "text/plain-text");
+         //response.setHeader("Content-Type", "text/plain-text");
         String s="helloworld";
+        int id=0;
+         PreparedStatement pstmt=null;
         try (PrintWriter out = response.getWriter()) {
+             try (Connection cn = connection.myConnection.getConnection()) {
             if (!request.getParameterNames().hasMoreElements()) {
-                s=getResults("SELECT * FROM post");
+                s="SELECT * FROM post";
+                 pstmt = cn.prepareStatement(s);
             } else {
-                int id = Integer.parseInt(request.getParameter("id"));
-                s=getResults("SELECT * FROM post WHERE p_id = ?", String.valueOf(id));
+                 id = Integer.parseInt(request.getParameter("id"));
+                s="SELECT * FROM post WHERE p_id = ?";
+                  pstmt = cn.prepareStatement(s);
+                 pstmt.setInt(1,id);
             }
-            request.setAttribute("result",s);
-       request.getRequestDispatcher("test.jsp").forward(request, response);
-        
-        } catch (IOException ex) {
-            Logger.getLogger(PostShowServlet.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-        
-    }
-
-    private String getResults(String query, String... params) {
-        StringBuilder sb = new StringBuilder();
-        try (Connection cn = connection.myConnection.getConnection()) {
-            PreparedStatement pstmt = cn.prepareStatement(query);
-            for (int i = 1; i <= params.length; i++) {
-                pstmt.setString(i, params[i - 1]);
-            }
-            ResultSet rs = pstmt.executeQuery();
+                       ResultSet rs = pstmt.executeQuery();
+            	out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet testServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
             while (rs.next()) {
-                sb.append(String.format("%s\t%s\t%s\t%s\t%s\n", rs.getInt("p_id"), rs.getString("title"), rs.getString("description"), rs.getString("date"), rs.getInt("category")));
+			
+		
+            out.println("<h1>" +rs.getString("title") + "</h1>");
+	out.println("<h1>" +rs.getString("description") + "</h1>");
+	out.println("<h1>" +rs.getString("date") + "</h1>");
+           
+        }
+            out.println("</body>");
+            out.println("</html>");     
             }
         } catch (SQLException ex) {
             Logger.getLogger(PostShowServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return sb.toString();
+        } 
+        
     }
 
 }
