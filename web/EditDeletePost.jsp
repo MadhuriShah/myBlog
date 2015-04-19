@@ -1,6 +1,6 @@
 <%-- 
-    Document   : testinsert
-    Created on : 18-Apr-2015, 5:16:43 PM
+    Document   : EditDeletePost
+    Created on : 18-Apr-2015, 8:14:35 PM
     Author     : c0647610
 --%>
 
@@ -19,9 +19,11 @@
         <script>
             $(document).ready(function() {
                 // Go Grab the Blog Data and Place it on the Page
-                $.getJSON('./webresources/insert/', getBlog);                
-                // Configure an On-Click Listener to Update the Form
-                $('#send').click(function() {
+                $.getJSON('./webresources/insert/', getBlog);    
+                 $('#text').addClass('invisible');
+                  $('#title').addClass('invisible');
+                    $('#send').addClass('invisible');                // Configure an On-Click Listener to Update the Form
+              /* $('#send').click(function() {
                     $.ajax({
                         url: "./webresources/insert/",
                         dataType: "json",
@@ -29,20 +31,19 @@
                         data: JSON.stringify({"title": $("#title").val(),
                             "description": $("#text").val()}),
                         method: "post",
-                        success:function(result){
-                            document.location.href="EditDeletePost.jsp";
-                        }
+                        success: getBlog
                     });
-                });                
+                }); */               
             });
             // Configure a Callback to Update the Blog
+            $('#title')
             var getBlog = function(data) {
                 $('#blog').html('');
                 for (var i = 0; i < data.length; i++)
                 {                    $('#blog').append('<h3>' + data[i].title + '</h3><p><small>' + 
-                        data[i].date+ '</small></h5><p>' + data[i].description + '</p>' +
-                        '<p><button class="btn btn-default" onclick="doDelete('+ 
-                        data[i].p_id + ')">Delete</button><button class="btn btn-default" onclick="stageUpdate('+ 
+                       data[i].description  + '</small></h5><p>' + data[i].date+
+                        '&nbsp;&nbsp;&nbsp;<button style="align:right" class="btn btn-default" onclick="doDelete('+ 
+                        data[i].p_id + ')">Delete</button>&nbsp;&nbsp;<button class="btn btn-default" onclick="stageUpdate('+ 
                         data[i].p_id + ')">Edit</button></p>');
             }
                 $('#text').val('');
@@ -60,6 +61,8 @@
             };
             // Stage an Update on the DB
             var stageUpdate = function(id) {
+                 $('#text').removeClass('invisible');
+                  $('#title').removeClass('invisible');
                 $.getJSON('./webresources/insert/' + id, function(data) {
                     console.log(data);
                     $('#title').val(data[0].title);
@@ -76,6 +79,8 @@
                             success: function(data) {
                                 getBlog(data);
                                 $('#update').addClass('invisible');
+                                $('#text').addClass('invisible');
+                                 $('#title').addClass('invisible');
                             }
                         });    
                     });
@@ -86,17 +91,19 @@
     <body>
         <section class='container'>
             <div class="col-md-8">
-                <h1>Welcome to My Blog</h1>
-                <div class="form-group">
-                    <label for="title">Title:</label>
+                <a href="testinsert.jsp">Add a new Post</a>
+                 <div id="blog" class="panel-body"></div>
+            </div>
+            <div class="form-group">
                     <input id="title" class="form-control"/>
-                </div>
-                <textarea id="text" rows="3" class="form-control"></textarea>
-                <button id="send" class="btn btn-default">Send</button>                
+                
+                <textarea id="text" rows="3" class="form-control"></textarea>               
                 <button id="update" class="btn btn-default invisible">Update</button>  
-                <div class="panel">
-                 </div>
-            <div class="col-md-4" id="resume"></div>            
+                 
+                
+               </div>
+                      
         </section>
     </body>
 </html>
+
