@@ -21,8 +21,8 @@
              
              <div class="form-group">
              <div class="container">
-            <p>Username: <input type="Text"  name="username" placeholder="madhuri"/></p>
-            <p>Password: <input type="password"  name="password" placeholder="madhuri123"/> </p>
+            <p>Username: <input type="Text"  name="username" /></p>
+            <p>Password: <input type="password"  name="password" /> </p>
             <p><input type="Submit" class="btn btn-success" name="submit" value="submit"/></p>            
              </div>
              </div>

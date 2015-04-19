@@ -38,43 +38,56 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     @Override
+    
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Set<String> keySet = request.getParameterMap().keySet();
         try (PrintWriter out = response.getWriter()) {
             if (keySet.contains("username") && keySet.contains("password")) {
                 Connection cn = connection.myConnection.getConnection();
-                String username = request.getParameter("username");
+                String user = request.getParameter("username");
+                System.out.println(user);
+                
                 String pass = request.getParameter("password");
-                String query = "SELECT username, password FROM LOGIN WHERE username = ?";
+                System.out.println(pass);
+                if(!pass.equals("")&& !user.equals("")){
+                   
+                String query = "SELECT username, PASSWORD FROM LOGIN WHERE USERNAME = ?";
                 PreparedStatement pstmt = cn.prepareStatement(query);
-                pstmt.setString(1, username);
+                pstmt.setString(1, user);
                 ResultSet rs = pstmt.executeQuery();
-                String password1 = "";
-                 String username1 = "";
-
+                String passwordDb = "";
+                String uidDb = "";
                 boolean loggedIn= false;
                 while (rs.next()) {
-                    password1 = rs.getString("password");
-                    username1 = rs.getString("username");
+                    passwordDb = rs.getString("password");
+                    uidDb = rs.getString("username");
                 }
-                loggedIn = pass.equals(password1);
-                System.out.println(loggedIn);
+                if(pass.equalsIgnoreCase(passwordDb))
+                    loggedIn=true;
+                else
+                    loggedIn=false;
                 if (loggedIn) {
-                    username1 = username;
+                   
                     HttpSession session = request.getSession();
-                    session.setAttribute("username", username);
+                    session.setAttribute("uid", uidDb);
                     session.setAttribute("loggedIn", loggedIn);
                     response.sendRedirect("EditDeletePost.jsp");
                 }
                 else{
-                    response.sendRedirect("show");
+                   response.sendRedirect("login.jsp"); 
+                }
+                }
+                else{
+                    response.sendRedirect("login.jsp");
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,4 +100,4 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-}
+
