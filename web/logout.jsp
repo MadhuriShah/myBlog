@@ -13,7 +13,7 @@
     </head>
     <body>
      <%   session.invalidate();
-        response.sendRedirect("EditDeletePost.jsp");
+        response.sendRedirect("show");
         %>
     </body>
 </html>
