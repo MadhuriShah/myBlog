@@ -15,14 +15,14 @@
     </head>
     <body>
         <center>
-         <form>
+         <form action="LoginServlet" method="post">
              <h1>Welcome to my Blog</h1>
              <h3> Login </h3>
              
              <div class="form-group">
              <div class="container">
             <p>Username: <input type="Text"  name="username" placeholder="madhuri"/></p>
-            <p>Password: <input type="Text"  name="username" placeholder="madhuri123"/> </p>
+            <p>Password: <input type="password"  name="password" placeholder="madhuri123"/> </p>
             <p><input type="Submit" class="btn btn-success" name="submit" value="submit"/></p>            
              </div>
              </div>
