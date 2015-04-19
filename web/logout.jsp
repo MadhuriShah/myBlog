@@ -12,7 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        session.invalidate();
+     <%   session.invalidate();
         response.sendRedirect("EditDeletePost.jsp");
+        %>
     </body>
 </html>
