@@ -52,17 +52,18 @@ public class PostShowServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>    <link href=\"https://bootswatch.com/flatly/bootstrap.min.css\" rel=\"stylesheet\">");
-            out.println("<title>Servlet testServlet</title>");            
+            out.println("<title>My Blog</title>");            
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body> <div class=\"container\"> <h2>Welcome to My Blog</h2><div class=\" form-inline form-group panel panel-info\">");
+           
             while (rs.next()) {
-            out.println("<h1>" +rs.getString("title") + "</h1>");
-            out.println(" <small><em>" +rs.getString("date") + "</em></small>");
+            out.println("<div class=\"panel-heading\">" +rs.getString("title"));
+            out.println(" <small><em>" +rs.getString("date") + "</em></small></div>");
             out.println("<div class=\"panel-body\"><p>" +rs.getString("description") + "</p></div>");
 	
            
         }
-            out.println("</body>");
+            out.println("</div></div></body>");
             out.println("</html>");     
             }
         } catch (SQLException ex) {
