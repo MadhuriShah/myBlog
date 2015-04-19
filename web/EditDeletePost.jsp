@@ -39,9 +39,9 @@
             var getBlog = function(data) {
                 $('#blog').html('');
                 for (var i = 0; i < data.length; i++)
-                {                    $('#blog').append('<h3>' + data[i].title + '</h3><p><small>' + 
-                       data[i].description  + '</small></h5>' + data[i].date+
-                        '&nbsp;&nbsp;&nbsp;<p align="right"><button class="btn btn-info" onclick="doDelete('+ 
+                {                    $('#blog').append('<h3>' + data[i].title + '</h3><h4>' + 
+                       data[i].description  + '</h4><small>' + data[i].date+
+                        '</small>&nbsp;&nbsp;&nbsp;<p align="right"><button class="btn btn-info" onclick="doDelete('+ 
                         data[i].p_id + ')">Delete</button>&nbsp;&nbsp;<button class="btn btn-info" onclick="stageUpdate('+ 
                         data[i].p_id + ')">Edit</button></p>');
             }
