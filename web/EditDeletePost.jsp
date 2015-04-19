@@ -92,6 +92,7 @@
         <section class='container'>
             <div class="col-md-8">
                 <a href="testinsert.jsp">Add a new Post</a>
+                <a href="login.xhtml">Logout</a>
                  <div id="blog" class="panel-body"></div>
             </div>
             <div class="form-group">

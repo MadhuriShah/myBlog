@@ -53,7 +53,7 @@ public class loginBean {
     }
 
    
-    public void doLogin() {
+    public String doLogin() {
         
         Connection cn=connection.myConnection.getConnection();
          PreparedStatement stmt=null;
@@ -73,9 +73,11 @@ public class loginBean {
         }
         if(pass.equals(pass1)){
             loggedIn=true;
+            return "EditDeletePost.jsp"; 
         }
         else{
             loggedIn=false;
+            return "login.xhtml";
         }
     }
     public void doLogout(){

@@ -10,10 +10,16 @@ and open the template in the editor.
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style>p{color:blue;} </style>
+        
+         <link href="https://bootswatch.com/flatly/bootstrap.min.css" rel="stylesheet" />
     </h:head>
     <h:body>
+        <center>
          <h:form>
+             <h1 value="#{user.setLoggedIn(FALSE)}">Welcome to my Blog</h1>
+             <h3> Login </h3>
+             
+             <div class="form-group">
              <c:if test="#{!user.loggedIn}">
             <p>Username: <h:inputText value="#{user.username}" /></p>
             <p>Password: <h:inputSecret value="#{user.pass}" /></p>
@@ -21,8 +27,11 @@ and open the template in the editor.
           </c:if>
               <c:if test="#{user.loggedIn}">
                 <p>Logged In!</p>
+                
                 <p><h:commandLink action="#{user.doLogout()}" value="Logout"/></p>
             </c:if>
+             </div>
         </h:form>
+        </center>
     </h:body>
 </html>
