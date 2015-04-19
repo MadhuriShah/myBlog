@@ -93,7 +93,7 @@
                 <h1>Welcome to my Blog </h1>
                 <p align="right">
                 <a href="testinsert.jsp">Add a new Post</a>
-                <a href="login.xhtml">Logout</a>
+                <a href="show">Logout</a>
                 </p>
                  <div id="blog" class="panel-body"></div>
             

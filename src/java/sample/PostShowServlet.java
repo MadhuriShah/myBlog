@@ -54,7 +54,7 @@ public class PostShowServlet extends HttpServlet {
             out.println("<head>    <link href=\"https://bootswatch.com/flatly/bootstrap.min.css\" rel=\"stylesheet\">");
             out.println("<title>My Blog</title>");            
             out.println("</head>");
-            out.println("<body> <div class=\"container\"> <p align=right><a href=\"faces/login.xhtml\" >Login</a></p><h2>Welcome to My Blog</h2> &nbsp;&nbsp;<div class=\" form-inline form-group panel panel-info\">");
+            out.println("<body> <div class=\"container\"> <p align=right><a href=\"login.jsp\" >Login</a></p><h2>Welcome to My Blog</h2> &nbsp;&nbsp;<div class=\" form-inline form-group panel panel-info\">");
            
             while (rs.next()) {
             out.println("<div class=\"panel-heading\">" +rs.getString("title"));

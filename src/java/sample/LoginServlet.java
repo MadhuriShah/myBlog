@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
                     username1 = rs.getString("username");
                 }
                 loggedIn = pass.equals(password1);
+                System.out.println(loggedIn);
                 if (loggedIn) {
                     username1 = username;
                     HttpSession session = request.getSession();
@@ -68,7 +69,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("EditDeletePost.jsp");
                 }
                 else{
-                    response.sendRedirect("/show");
+                    response.sendRedirect("show");
                 }
             }
         } catch (SQLException ex) {
